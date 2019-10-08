@@ -1,0 +1,30 @@
+CREATE TABLE test_table (
+id SERIAL PRIMARY KEY,
+name varchar(40) NOT NULL,
+data JSONB
+);
+
+-- creates a table with three columns, named id, name, and data. 
+
+varchar meas that there will be 40 or less characters in the name
+NOT NULL is a constraint that doesn't allow null's 
+JSONB javascript object notation 
+
+INSERT INTO test_table (name, data) VALUES
+('A row name',
+null
+),
+('Another row with JSON',
+'{"a":1, "b":["dog", "cat", 42], "c": true}'::JSONB
+);
+
+--create two rows of data wtih the associated data 
+
+DELETE FROM test_table 
+WHERE name = 'A row name';
+
+--sql is more picky about single vs double quotes
+
+elephantsql is faster through python than through the webapp
+
+

@@ -1,0 +1,485 @@
+AttributeError: 'sqlite3.Cursor' object has no attribute 'exectute'
+>>> curs3.execute('SELECT * FROM toy;').fetchall()
+[]
+>>> curs3.execute(insert_query)
+<sqlite3.Cursor object at 0x103aa2c70>
+>>> curs3.close()
+>>> conn.commit()
+>>> curs4 =conn.cursor()
+>>> curs4.execute('SELECT * FROM toy;')
+<sqlite3.Cursor object at 0x103aa2c00>
+>>> curs4.execute('SELECT * FROM toy;').fetchall()
+[('awesome', 20)]
+>>> exit()
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ atom.
+-bash: atom.: command not found
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ atom .
+-bash: atom: command not found
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ atom .
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ clear
+
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ python
+Python 3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ ls
+LICENSE
+README.md
+module1-introduction-to-sql
+module2-sql-for-analysis
+module3-nosql-and-document-oriented-databases
+module4-acid-and-database-scalability-tradeoffs
+toy_data.db
+(base) Eyvonnes-Mac-mini:DS-Unit-3-Sprint-2-SQL-and-Databases eyvonnegeordan$ cd module1-introduction-to-sql/
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ ls
+README.md		rpg_db.sqlite3
+buddymove_holidayiq.csv	schema.png
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ python
+Python 3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sqlite3
+>>> conn=sqlite3.connect('rpg_db.sqlite3')
+>>> conn
+<sqlite3.Connection object at 0x10e5818f0>
+>>> curs = conn.cursor()
+>>> query='SELECT charicter_id FROM charactercreator_character COUNT'
+>>> curs.execute(query)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: no such column: charicter_id
+>>> query='SELECT character_id FROM charactercreator_character COUNT'
+>>> curs.execute(query)
+<sqlite3.Cursor object at 0x10e51eea0>
+>>> query='SELECT COUNT character_id FROM charactercreator_character'
+>>> curs.execute(query)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: no such column: COUNT
+>>> query='SELECT COUNT (character_id) FROM charactercreator_character'
+>>> curs.execute(query)
+<sqlite3.Cursor object at 0x10e51eea0>
+>>> curs.execute(query).fetchone
+<built-in method fetchone of sqlite3.Cursor object at 0x10e51eea0>
+>>> curs.execute(query).fetchone()
+(302,)
+>>> #there are 302 characters in the table 
+... 
+>>> curs.close()
+>>> conn.commit()
+>>> curs2=conn.cursor()
+>>> query='select count(1) from charactercreator_cleric'
+>>> curs2.execute(query).fetchone()
+(75,)
+>>> #there are 75 clerics
+... 
+>>> query='select count(1) from charactercreator_'
+>>> class='fighter'
+  File "<stdin>", line 1
+    class='fighter'
+         ^
+SyntaxError: invalid syntax
+>>> clas='fighter'
+>>> curs2.execute(query+class).fetchone()
+  File "<stdin>", line 1
+    curs2.execute(query+class).fetchone()
+                            ^
+SyntaxError: invalid syntax
+>>> query+class
+  File "<stdin>", line 1
+    query+class
+              ^
+SyntaxError: invalid syntax
+>>> curs2.execute(query+clas).fetchone()
+(68,)
+>>> #there are 68 fighters
+... 
+>>> clas='mage'
+>>> curs2.execute(query+clas).fetchone()
+(108,)
+>>> clas='necromancer'
+>>> curs2.execute(query+clas).fetchone()
+(11,)
+>>> clas='thief'
+>>> curs2.execute(query+clas).fetchone()
+(51,)
+>>> curs2.close()
+>>> conn.commit()
+>>> curs3=conn.cursor()
+>>> curs3.execute('select count(1) FROM armoury_item').fetchall()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: no such table: armoury_item
+>>> curs3.execute('select count(1) FROM armory_item').fetchall()
+[(174,)]
+>>> curs3.close()
+>>> conn.commit()
+>>> curs4=conn.cursor()
+>>> exit()
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ ls
+README.md		rpg_db.sqlite3
+buddymove_holidayiq.csv	schema.png
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ touch '
+> rpg_queries.py'
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ python
+Python 3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sqlite3
+>>> conn=sqlite3.connect('rpg_db.sqlite3')
+>>> curs.execute(select count(1) from armory_item').fetchone()[0]
+  File "<stdin>", line 1
+    curs.execute(select count(1) from armory_item').fetchone()[0]
+                            ^
+SyntaxError: invalid syntax
+>>> curs.execute('select count(1) from armory_item').fetchone()[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'curs' is not defined
+>>> curs=conn.cursor()
+>>> curs.execute('select count(1) from armory_item').fetchone()[0]
+174
+>>> curs.execute('''select count(character_id)
+...                     from charactercreator_character_inventory
+...                     inner join armory_weapon
+...                     on item_ptr_id=item_id
+...                     Group by character_id
+...                     ;''').fetchall()
+[(2,), (1,), (1,), (1,), (1,), (1,), (1,), (3,), (2,), (1,), (1,), (1,), (2,), (3,), (2,), (2,), (2,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (2,), (1,), (2,), (1,), (3,), (1,), (1,), (1,), (1,), (1,), (3,), (1,), (1,), (1,), (1,), (2,), (2,), (2,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (2,), (1,), (1,), (1,), (1,), (1,), (1,), (2,), (2,), (2,), (1,), (2,), (1,), (1,), (1,), (3,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (1,), (1,), (2,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (1,), (1,), (1,), (2,), (1,), (2,), (1,), (1,), (3,), (2,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (3,), (1,), (1,), (2,), (1,), (2,), (1,), (1,), (1,), (2,), (2,), (2,), (1,), (1,), (1,), (1,), (2,), (1,), (2,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (1,), (2,), (1,), (1,), (1,), (1,)]
+>>> list=curs.execute('''select count(character_id)
+...                     from charactercreator_character_inventory
+...                     inner join armory_weapon
+...                     on item_ptr_id=item_id
+...                     Group by character_id
+...                     ;''').fetchall()
+>>> sum(list)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'int' and 'tuple'
+>>> list[:][0]
+(2,)
+>>> list[:,0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: list indices must be integers or slices, not tuple
+>>> len(list)
+155
+>>> [i[0] for i in list]
+[2, 1, 1, 1, 1, 1, 1, 3, 2, 1, 1, 1, 2, 3, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 3, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 2, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1]
+>>> list2=[i[0] for i in list]
+>>> sum(list2)/len(list2)
+1.3096774193548386
+>>> import pandas as pd
+>>> df = pd.read_csv('buddymove_holidayiq.csv')
+>>> df
+      User Id  Sports  Religious  Nature  Theatre  Shopping  Picnic
+0      User 1       2         77      79       69        68      95
+1      User 2       2         62      76       76        69      68
+2      User 3       2         50      97       87        50      75
+3      User 4       2         68      77       95        76      61
+4      User 5       2         98      54       59        95      86
+5      User 6       3         52     109       93        52      76
+6      User 7       3         64      85       82        73      69
+7      User 8       3         54     107       92        54      76
+8      User 9       3         64     108       64        54      93
+9     User 10       3         86      76       74        74     103
+10    User 11       3        107      54       64       103      94
+11    User 12       3        103      60       63       102      93
+12    User 13       3         64      82       82        75      69
+13    User 14       3         93      54       74       103      69
+14    User 15       3         63      82       81        78      69
+15    User 16       3         82      79       75        75      82
+16    User 17       5         59     131      103        54      86
+17    User 18       5         56     124      108        56      85
+18    User 19       4         85      67      111        65      72
+19    User 20       5        114      83       65       114     102
+20    User 21       4         93      82       79        79      90
+21    User 22       4        105      52       75       113      78
+22    User 23       5         69     118       74        66     101
+23    User 24       4         71     123       64        59     102
+24    User 25       5         88      94       81        79      91
+25    User 26       5         83      99       89        74      91
+26    User 27       5         69     133       74        54     101
+27    User 28       5        128      53       74       117     105
+28    User 29       5         74     123       69        61     101
+29    User 30       5         79      93      118        90      72
+..        ...     ...        ...     ...      ...       ...     ...
+219  User 220      18        114     183      114       109     178
+220  User 221      18        114     173      183       128     124
+221  User 222      18        128     134      188        89     124
+222  User 223      18        143     154      129       129     178
+223  User 224      18        128     163      173       133     130
+224  User 225      18        148      99      139       168     129
+225  User 226      18         83     218      163        74     140
+226  User 227      22        120     168      158       144     133
+227  User 228      22        203      99      104       223     173
+228  User 229      18        143     139      119       139     203
+229  User 230      22        153     144      139       144     193
+230  User 231      18        147     144      129       149     144
+231  User 232      18        188      74      109       213     168
+232  User 233      25        158     154      154       154     153
+233  User 234      25        104     208      168       134     144
+234  User 235      25        139     153      193       158     134
+235  User 236      25         84     247      168       109     140
+236  User 237      25        173      89      124       233     158
+237  User 238       8         93     119       99        89     138
+238  User 239      22        124     168      208       148     124
+239  User 240      18        114     158      178       158     124
+240  User 241      20        188      94       94       223     153
+241  User 242      25        114     238      124       104     178
+242  User 243      18         94     188      148        99     139
+243  User 244      25        129     318       94        89     188
+244  User 245      18        139     148      129       129     168
+245  User 246      22        114     228      104        84     168
+246  User 247      20        124     178      104       158     174
+247  User 248      20        133     149      139       144     213
+248  User 249      20        143     149      139       159     143
+
+[249 rows x 7 columns]
+>>> df.shape
+(249, 7)
+>>> df.head()
+  User Id  Sports  Religious  Nature  Theatre  Shopping  Picnic
+0  User 1       2         77      79       69        68      95
+1  User 2       2         62      76       76        69      68
+2  User 3       2         50      97       87        50      75
+3  User 4       2         68      77       95        76      61
+4  User 5       2         98      54       59        95      86
+>>> curs.close
+<built-in method close of sqlite3.Cursor object at 0x107cb5ea0>
+>>> curs.close()
+>>> conn.commit()
+>>> conn2= sqlite3.connect('buddymove_holidayiq.sqlite3')
+>>> df.to_sql('buddymove', conn2)
+/Users/eyvonnegeordan/anaconda3/lib/python3.7/site-packages/pandas/core/generic.py:2531: UserWarning: The spaces in these column names will not be changed. In pandas versions < 0.14, spaces were converted to underscores.
+  dtype=dtype, method=method)
+>>> conn.commit()
+>>> conn2.commit()
+>>> exit()
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ python
+Python 3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import pandas as pd
+>>> df=pd.read_csv('buddymove_holidayiq.csv')
+>>> df.rename({'User Id':
+... 'user_id'}, axis=1)
+      user_id  Sports  Religious  Nature  Theatre  Shopping  Picnic
+0      User 1       2         77      79       69        68      95
+1      User 2       2         62      76       76        69      68
+2      User 3       2         50      97       87        50      75
+3      User 4       2         68      77       95        76      61
+4      User 5       2         98      54       59        95      86
+5      User 6       3         52     109       93        52      76
+6      User 7       3         64      85       82        73      69
+7      User 8       3         54     107       92        54      76
+8      User 9       3         64     108       64        54      93
+9     User 10       3         86      76       74        74     103
+10    User 11       3        107      54       64       103      94
+11    User 12       3        103      60       63       102      93
+12    User 13       3         64      82       82        75      69
+13    User 14       3         93      54       74       103      69
+14    User 15       3         63      82       81        78      69
+15    User 16       3         82      79       75        75      82
+16    User 17       5         59     131      103        54      86
+17    User 18       5         56     124      108        56      85
+18    User 19       4         85      67      111        65      72
+19    User 20       5        114      83       65       114     102
+20    User 21       4         93      82       79        79      90
+21    User 22       4        105      52       75       113      78
+22    User 23       5         69     118       74        66     101
+23    User 24       4         71     123       64        59     102
+24    User 25       5         88      94       81        79      91
+25    User 26       5         83      99       89        74      91
+26    User 27       5         69     133       74        54     101
+27    User 28       5        128      53       74       117     105
+28    User 29       5         74     123       69        61     101
+29    User 30       5         79      93      118        90      72
+..        ...     ...        ...     ...      ...       ...     ...
+219  User 220      18        114     183      114       109     178
+220  User 221      18        114     173      183       128     124
+221  User 222      18        128     134      188        89     124
+222  User 223      18        143     154      129       129     178
+223  User 224      18        128     163      173       133     130
+224  User 225      18        148      99      139       168     129
+225  User 226      18         83     218      163        74     140
+226  User 227      22        120     168      158       144     133
+227  User 228      22        203      99      104       223     173
+228  User 229      18        143     139      119       139     203
+229  User 230      22        153     144      139       144     193
+230  User 231      18        147     144      129       149     144
+231  User 232      18        188      74      109       213     168
+232  User 233      25        158     154      154       154     153
+233  User 234      25        104     208      168       134     144
+234  User 235      25        139     153      193       158     134
+235  User 236      25         84     247      168       109     140
+236  User 237      25        173      89      124       233     158
+237  User 238       8         93     119       99        89     138
+238  User 239      22        124     168      208       148     124
+239  User 240      18        114     158      178       158     124
+240  User 241      20        188      94       94       223     153
+241  User 242      25        114     238      124       104     178
+242  User 243      18         94     188      148        99     139
+243  User 244      25        129     318       94        89     188
+244  User 245      18        139     148      129       129     168
+245  User 246      22        114     228      104        84     168
+246  User 247      20        124     178      104       158     174
+247  User 248      20        133     149      139       144     213
+248  User 249      20        143     149      139       159     143
+
+[249 rows x 7 columns]
+>>> exit()
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ python 
+Python 3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ pip install psycopg2-binary
+Collecting psycopg2-binary
+  Downloading https://files.pythonhosted.org/packages/ee/ed/2772267467ba5c21a73d37149da0b49a4343c6646d501dbb1450b492d40a/psycopg2_binary-2.8.3-cp37-cp37m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (1.5MB)
+     |████████████████████████████████| 1.6MB 850kB/s 
+Installing collected packages: psycopg2-binary
+Successfully installed psycopg2-binary-2.8.3
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ python
+Python 3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import psycopg2
+>>> dir(psycopg2)
+['BINARY', 'Binary', 'DATETIME', 'DataError', 'DatabaseError', 'Date', 'DateFromTicks', 'Error', 'IntegrityError', 'InterfaceError', 'InternalError', 'NUMBER', 'NotSupportedError', 'OperationalError', 'ProgrammingError', 'ROWID', 'STRING', 'Time', 'TimeFromTicks', 'Timestamp', 'TimestampFromTicks', 'Warning', '__builtins__', '__cached__', '__doc__', '__file__', '__libpq_version__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', '_connect', '_ext', '_json', '_psycopg', '_range', 'apilevel', 'compat', 'connect', 'errors', 'extensions', 'paramstyle', 'threadsafety', 'tz']
+>>> psycopg2.BINARY
+<psycopg2._psycopg.type 'BINARY' at 0x110507958>
+>>> psycopg2.BINARY()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: function takes exactly 2 arguments (0 given)
+>>> help(psycopg2.BINARY)
+
+>>> help(psycopg2.connect)
+
+>>> dbname='epgwreqv'
+>>> user='epgwreqv'
+>>> password=
+  File "<stdin>", line 1
+    password=
+            ^
+SyntaxError: invalid syntax
+>>> password='UGV3og2aGaAW2fP03tIgO9t868osOezT
+  File "<stdin>", line 1
+    password='UGV3og2aGaAW2fP03tIgO9t868osOezT
+                                             ^
+SyntaxError: EOL while scanning string literal
+>>> password='UGV3og2aGaAW2fP03tIgO9t868osOezT'
+>>> host='salt.db.elephantsql.com (salt-01)'
+>>> conn= psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/eyvonnegeordan/anaconda3/lib/python3.7/site-packages/psycopg2/__init__.py", line 126, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "salt.db.elephantsql.com (salt-01)" to address: nodename nor servname provided, or not known
+
+>>> host='salt.db.elephantsql.com'
+>>> pg_conn= psycopg2.connect(dbname=dbname, user=user, password=password, host=host)
+>>> pg_curs=pg_conn.cursor()
+>>> pg_curs.execute('SELECT * FROM test_table')
+>>> pg_curs.execute('SELECT * FROM test_table;')
+>>> pg_curs.fetchall()
+[(2, 'Another row with JSON', {'a': 1, 'b': ['dog', 'cat', 42], 'c': True})]
+>>> import sqlite3
+>>> sl_conn = sqlite3.connect('rpg_db.sqlite3')
+>>> sl_curs= sl_conn.cursor()
+>>> sl_curs.execute(SELECT COUNT(*) FROM charactercreator_character').fetchall()
+  File "<stdin>", line 1
+    sl_curs.execute(SELECT COUNT(*) FROM charactercreator_character').fetchall()
+                               ^
+SyntaxError: invalid syntax
+>>> sl_curs.execute('SELECT COUNT(*) FROM charactercreator_character').fetchall()
+[(302,)]
+>>> sl_curs.execute('SELECT COUNT(DISTINCT name) FROM charactercreator_character').fetchall() 
+[(297,)]
+>>> characters=sl_curs.execute("SELECT * FROM charactercreator_character;").fetchall()
+>>> sl_curs.fetchall()
+[]
+>>> characters[-1]
+(302, 'Aliquam n', 0, 0, 10, 1, 1, 1, 1)
+>>> sl_curs.execute('PRAGMA table_info(charactercreator_character);').fetchall()
+[(0, 'character_id', 'integer', 1, None, 1), (1, 'name', 'varchar(30)', 1, None, 0), (2, 'level', 'integer', 1, None, 0), (3, 'exp', 'integer', 1, None, 0), (4, 'hp', 'integer', 1, None, 0), (5, 'strength', 'integer', 1, None, 0), (6, 'intelligence', 'integer', 1, None, 0), (7, 'dexterity', 'integer', 1, None, 0), (8, 'wisdom', 'integer', 1, None, 0)]
+>>> create_character_table='CREATE TABLE charactercreator_character( character_id SERIAL PRIMARY KEY, name VARCHAR(30), level INT, exp INT, hp INT, strength INT, intelligence INT, dexterity INT, wisdom INT);
+  File "<stdin>", line 1
+    create_character_table='CREATE TABLE charactercreator_character( character_id SERIAL PRIMARY KEY, name VARCHAR(30), level INT, exp INT, hp INT, strength INT, intelligence INT, dexterity INT, wisdom INT);
+                                                                                                                                                                                                              ^
+SyntaxError: EOL while scanning string literal
+>>> create_character_table='CREATE TABLE charactercreator_character( character_id SERIAL PRIMARY KEY, name VARCHAR(30), level INT, exp INT, hp INT, strength INT, intelligence INT, dexterity INT, wisdom INT);'
+>>> pg_curs.execute(create_character_table)
+>>> show_tables=''' 
+... SELECT *
+... FROM pg_catalog.pg_tables
+... WHERE schemaname !='pg_catalog'
+... AND schemaname != 'information_schema';'''
+>>> pg_curs.execute(show_tables)
+>>> pg_curs.fetchall()
+[('public', 'test_table', 'epgwreqv', None, True, False, False, False), ('public', 'charactercreator_character', 'epgwreqv', None, True, False, False, False)]
+>>> characters[0]
+(1, 'Aliquid iste optio reiciendi', 0, 0, 10, 1, 1, 1, 1)
+>>> characters[0][1:]
+('Aliquid iste optio reiciendi', 0, 0, 10, 1, 1, 1, 1)
+>>> str(characters[0][1:])
+"('Aliquid iste optio reiciendi', 0, 0, 10, 1, 1, 1, 1)"
+>>> example_insert='''
+... INSERT INTO charactercreator_character
+... (name, level, exp, hp, strength, intelligence, desterity, wisdom)
+... VALUES'''
+>>> for char in characters:
+...     insert_character=
+  File "<stdin>", line 2
+    insert_character=
+                    ^
+SyntaxError: invalid syntax
+>>> 
+>>> for char in characters:
+...     insert_character=example_insert+str(char[1:])+';'
+...     pg_curs.execute(insert_character)]'
+  File "<stdin>", line 3
+    pg_curs.execute(insert_character)]'
+                                     ^
+SyntaxError: invalid syntax
+>>> for char in characters:
+...     insert_character=example_insert+str(char[1:])+';'
+...     pg_curs.execute(insert_character)]'
+  File "<stdin>", line 3
+    pg_curs.execute(insert_character)]'
+                                     ^
+SyntaxError: invalid syntax
+>>> for char in characters:
+...     insert_character=example_insert+str(char[1:])+';'
+...     pg_curs.execute(insert_character)
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+psycopg2.errors.UndefinedColumn: column "desterity" of relation "charactercreator_character" does not exist
+LINE 3: (name, level, exp, hp, strength, intelligence, desterity, wi...
+                                                       ^
+
+>>> for char in characters:
+...     insert_character='''INSERT INTO character_creator
+...                     (name, level, exp, hp, strength, intelligence, dexterity, wisdom)
+...                     VALUES'''+str(char[1:])+';'
+...     pg_curs.execute(insert_character)
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+>>> for char in characters:
+...     insert='''INSERT INTO charactercreator_character
+...     (name, level, exp, hp, strength, intelligence, dexterity, wisdom)
+...     VALUES'''+str(char[1:])+';'
+...     pg_curs.execute(insert)
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+psycopg2.errors.InFailedSqlTransaction: current transaction is aborted, commands ignored until end of transaction block
+
+>>> exit()
+(base) Eyvonnes-Mac-mini:module1-introduction-to-sql eyvonnegeordan$ 
