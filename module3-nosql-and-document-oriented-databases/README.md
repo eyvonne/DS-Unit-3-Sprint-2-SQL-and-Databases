@@ -38,7 +38,7 @@ code or in Markdown) - "How was working with MongoDB different from working with
 PostgreSQL? What was easier, and what was harder?"
 
 ## Answers:
-MongoDB was mostly different in the syntax. Trying to learn a new pattern of how to interact with the DB was interesting, but ultimately seems to be easier than the sql that we have been doing for the first half of this week. Being loosely typed/being able to accept multiple data types. The fact that mongo has its own set of wildcards to learn over the sql ones is frustrating but not entirely unexpected. I would say on average that I enjoyed the MongoDB more than the PostgreSQL.
+MongoDB was mostly different in the syntax. Trying to learn a new pattern of how to interact with the DB was interesting, but ultimately seems to be easier than the sql that we have been doing for the first half of this week. Being loosely typed/being able to accept multiple data types makes it a lot easier to load into MongoDB. The fact that mongo has its own set of wildcards to learn over the sql ones is frustrating but not entirely unexpected. I would say on average that I enjoyed the MongoDB more than the PostgreSQL.
 
 
 There is no other required tasks to turn in, but it is suggested to then revisit
